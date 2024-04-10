@@ -37,6 +37,17 @@ ThemeData lightThemeData(BuildContext context) {
       selectedIconTheme: const IconThemeData(color: kPrimaryColor),
       showUnselectedLabels: false,
     ),
+    inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: kWhiteColor,
+          //fillColor: Color(0xFFF8F8F9),
+          hintStyle: TextStyle(
+            color: Color(0xFFB8B5C3),
+          ),
+          border: defaultOutlineInputBorder,
+          enabledBorder: defaultOutlineInputBorder,
+          focusedBorder: defaultOutlineInputBorder,
+        ),
   );
 }
 

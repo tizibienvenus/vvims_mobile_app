@@ -14,3 +14,11 @@ const kDefaultPadding = 20.0;
 const kBottomNavigationBarHeight = kDefaultPadding * 2.8;
 
 const kDefaultDuration = Duration(milliseconds: 250);
+
+OutlineInputBorder defaultOutlineInputBorder = OutlineInputBorder(
+  borderSide: BorderSide(
+    color: kBlackColor.withOpacity(0.1),
+    width: 1
+  ),
+  borderRadius: BorderRadius.all(Radius.circular(30)),
+);
