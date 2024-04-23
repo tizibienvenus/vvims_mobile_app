@@ -20,5 +20,5 @@ OutlineInputBorder defaultOutlineInputBorder = OutlineInputBorder(
     color: kBlackColor.withOpacity(0.1),
     width: 1
   ),
-  borderRadius: BorderRadius.all(Radius.circular(30)),
+  borderRadius: const BorderRadius.all(Radius.circular(30)),
 );

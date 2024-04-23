@@ -1,4 +1,4 @@
-package com.example.vvims
+package com.vvims
 
 import io.flutter.embedding.android.FlutterActivity
 

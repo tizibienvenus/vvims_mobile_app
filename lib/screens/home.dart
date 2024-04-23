@@ -10,6 +10,8 @@ import 'package:vvims/screens/profile/profile.dart';
 import 'package:vvims/screens/scan/scan_screen.dart';
 import 'package:vvims/screens/visit_info/visit_info.dart';
 
+import '../utils/colors.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -18,7 +20,6 @@ class Home extends StatefulWidget {
 }
 
 class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
-
   late AnimationController menuAnimation;
   IconData lastTapped = Icons.notifications;
   ValueNotifier<bool> isDialOpen = ValueNotifier(false);
@@ -46,7 +47,6 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-
   int currentIndex = 0;
 
   List pages = [
@@ -59,19 +59,22 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      /* floatingActionButton: FloatingActionButton(
-        hoverElevation: 0,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(kDefaultPadding * 5)),
-        onPressed: (){},
-        child: SvgPicture.asset("assets/icons/scanner.svg")
-      ), */
-      bottomNavigationBar: buildBottomNavigationBar(),
-      floatingActionButton: buildFat(),
-      body: pages[currentIndex],
+    // ignore: deprecated_member_use
+    return WillPopScope(
+      onWillPop: () async {
+        if (isDialOpen.value) {
+          isDialOpen.value = false;
+          return false;
+        } else {
+          return true;
+        }
+      },
+      child: Scaffold(
+        bottomNavigationBar: buildBottomNavigationBar(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: buildFat(),
+        body: pages[currentIndex],
+      ),
     );
   }
 
@@ -79,7 +82,6 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
     return BottomNavigationBar(
       elevation: 1,
       type: BottomNavigationBarType.fixed,
-      //fixedColor: kPrimaryColor,
       currentIndex: currentIndex,
       enableFeedback: true,
       showSelectedLabels: false,
@@ -93,9 +95,19 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
       },
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: "Home"),
-        BottomNavigationBarItem(icon: Icon(Icons.folder_rounded), label: "Folder"),
-        BottomNavigationBarItem(icon: Icon(Icons.notifications_rounded , color: kWhiteColor,), label: "None"),
-        BottomNavigationBarItem(icon: Icon(Icons.notifications_rounded,), label: "Notifications"),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.folder_rounded), label: "Folder"),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.notifications_rounded,
+              color: kWhiteColor,
+            ),
+            label: "None"),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.notifications_rounded,
+            ),
+            label: "Notifications"),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_2_rounded),
           label: "Profile",
@@ -104,85 +116,92 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-  SpeedDial buildFat(){
+  SpeedDial buildFat() {
     return SpeedDial(
       icon: Icons.qr_code_scanner_outlined,
-      //animatedIcon: AnimatedIcons.arrow_menu,
       openCloseDial: isDialOpen,
       backgroundColor: kPrimaryColor,
-      overlayColor: Color(0xFF2C4364),
-      overlayOpacity: 0.6,
+      overlayColor: const Color(0xFF2C4364).withOpacity(0.4),
+      overlayOpacity: 0.8,
       spacing: 0,
       elevation: 0,
-      buttonSize: Size(56, 56),
-      childrenButtonSize: Size(300, 60),
+      buttonSize: const Size(56, 56),
+      childrenButtonSize: const Size(300, 60),
       spaceBetweenChildren: 5,
       closeManually: true,
       children: [
-         SpeedDialChild(
-          onTap: (){
+        SpeedDialChild(
+          onTap: () {
+            Navigator.pop(context);
             Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => ScanScreen(),)
-            );
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ScanScreen(),
+                ));
           },
-          //backgroundColor: kWhiteColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0), // Customize the border radius as needed
+            borderRadius: BorderRadius.circular(100.0),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+          child: Container(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
-                  backgroundColor: kSecondaryColor.withOpacity(0.1),
-                  child: SvgPicture.asset("assets/icons/car.svg")), 
-                const SizedBox(width: kDefaultPadding / 2,),
+                    backgroundColor: kSecondaryColor.withOpacity(0.1),
+                    child: SvgPicture.asset(
+                      "assets/icons/car.svg",
+                      height: 20,
+                    )),
+                const SizedBox(
+                  width: kDefaultPadding / 2,
+                ),
                 Flexible(
                   child: Text(
-                    "Scanner le passeport / CNI",
+                    "Scan Passport/ID Card",
                     maxLines: 1,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 )
               ],
             ),
-          ), 
+          ),
         ),
-        
         SpeedDialChild(
           //backgroundColor: kWhiteColor,
-          onTap: (){
+          onTap: () {
+            Navigator.pop(context);
             Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => ScanScreen(),)
-            );
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ScanScreen(),
+                ));
           },
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0), // Customize the border radius as needed
+            borderRadius: BorderRadius.circular(
+                100.0), // Customize the border radius as needed
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
-            child: Row(
-              children: [
-                CircleAvatar(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
                   backgroundColor: kSecondaryColor.withOpacity(0.1),
-                  child: SvgPicture.asset("assets/icons/car.svg")), 
-                const SizedBox(width: kDefaultPadding / 2,),
-                Text(
-                  "Scanner le Véhicule",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                )
-              ],
-            ),
-          ), 
+                  child: SvgPicture.asset(
+                    "assets/icons/car.svg",
+                    height: 20,
+                  )),
+              const SizedBox(
+                width: kDefaultPadding / 2,
+              ),
+              Text(
+                "Scan Vehicle",
+                style: Theme.of(context).textTheme.bodyLarge,
+              )
+            ],
+          ),
         ),
-       
       ],
     );
   }
-
-
 }
-
-
