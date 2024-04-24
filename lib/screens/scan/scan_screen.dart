@@ -1,21 +1,17 @@
-import 'dart:developer';
 import 'dart:io';
-import 'dart:math' hide log;
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:vvims/config/app_colors.dart';
 import 'package:vvims/constants/constants.dart';
 import 'package:vvims/screens/home/scanned_visitor_details.dart';
 import 'package:vvims/utils/functions.dart';
 
 class ScanScreen extends StatefulWidget {
-  const ScanScreen({
-    super.key,
-    this.index,
-  });
+  const ScanScreen({super.key, this.index, required this.title});
 
   final index;
+  final String title;
   @override
   _ScanScreenState createState() => _ScanScreenState();
 }
@@ -27,9 +23,10 @@ class _ScanScreenState extends State<ScanScreen>
   late TabController _tabController;
 
   int _selectedIndex = 0;
-  String imageSide = 'Front Id';
+  String imageSide = 'Scan Front Id Card';
   Map<String, dynamic>? frontIdData;
   Map<String, dynamic>? backIdData;
+  bool processing = true;
 
   @override
   void initState() {
@@ -40,6 +37,7 @@ class _ScanScreenState extends State<ScanScreen>
   }
 
   Future<void> initCamera() async {
+    WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     final firstCamera = cameras.first;
     _controller = CameraController(
@@ -47,6 +45,12 @@ class _ScanScreenState extends State<ScanScreen>
       ResolutionPreset.high,
     );
     await _controller.initialize();
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      processing = false;
+    });
   }
 
   Future<void> extractText(File image) async {
@@ -54,6 +58,9 @@ class _ScanScreenState extends State<ScanScreen>
     final RecognizedText recognizedText =
         await textRecognizer.processImage(inputImage);
     String text = recognizedText.text;
+    setState(() {
+      processing = false;
+    });
 
     if (_selectedIndex == 0) {
       frontIdData = processExtractedText(text);
@@ -68,9 +75,10 @@ class _ScanScreenState extends State<ScanScreen>
       if (frontIdData == null) {
         frontIdData = processExtractedText(text);
         setState(() {
-          imageSide = "Back ID";
+          imageSide = "Scan Back ID Card";
+          processing = false;
         });
-        showToast(message: "Snap Back Id", color: Colors.black);
+        showToast(message: "Scan Back Id", color: kSecondaryColor);
       } else {
         backIdData ??= processExtractedText(text);
         Navigator.pushReplacement(
@@ -104,32 +112,50 @@ class _ScanScreenState extends State<ScanScreen>
 
   @override
   Widget build(BuildContext context) {
-    log(_controller.value.isInitialized.toString());
     return Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 100,
+          surfaceTintColor: Colors.white,
+          automaticallyImplyLeading: true,
+          title: Text(widget.title,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  fontSize: 20,
+                  color: AppColors.white,
+                  fontWeight: FontWeight.w700)),
+          centerTitle: true,
+          flexibleSpace: Container(
+            padding: EdgeInsets.zero,
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [
+              Color(0xff7B9CF6),
+              Color(0xff184AD2),
+            ])),
+          ),
+        ),
         body: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Stack(
             children: [
-              // Expanded(
-              //   child: _controller.value.isInitialized
-              //       ? CameraPreview(_controller)
-              //       : const Center(child: CircularProgressIndicator()),
-              // ),
+              Expanded(
+                child: _controller.value.isInitialized
+                    ? CameraPreview(_controller)
+                    : const Center(child: CircularProgressIndicator()),
+              ),
               if (_selectedIndex == 1)
                 Positioned(
-                    top: 60,
+                    top: 30,
                     right: 20,
                     child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
-                            color: kSecondaryColor,
+                            color: AppColors.black,
                             borderRadius: BorderRadius.circular(20)),
                         child: Text(
                           imageSide,
                           style: Theme.of(context)
                               .textTheme
-                              .button
+                              .labelLarge
                               ?.copyWith(color: Colors.white),
                         ))),
               Positioned(

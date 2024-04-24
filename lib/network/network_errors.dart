@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:vvims/utils/colors.dart';
+import 'package:vvims/config/app_colors.dart';
 import 'package:vvims/utils/utils.dart';
 
 class NetworkErrors {

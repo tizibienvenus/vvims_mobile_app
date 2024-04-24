@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vvims/constants/constants.dart';
 
 class HeaderSection extends StatelessWidget {
+  const HeaderSection({super.key});
+
   
   @override
   Widget build(BuildContext context){

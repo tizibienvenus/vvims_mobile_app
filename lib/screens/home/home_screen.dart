@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vvims/config/app_colors.dart';
 import 'package:vvims/screens/scan/scan_screen.dart';
-
-import '../../components/custom_input.dart';
-import '../../utils/colors.dart';
+import '../../components/custom_serach_input.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Transform.translate(
                     offset: const Offset(0, -30),
                     child: CustomFormInputField(
@@ -81,28 +81,34 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Register Visitor / Vehicle",
-                            style:
-                                Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      fontSize: 20,
-                                    )),
-                        Icon(
-                          Icons.more_horiz,
-                          size: 30,
-                          color: AppColors.black,
-                        )
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Register Visitor / Vehicle",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    fontSize: 20,
+                                  )),
+                          Icon(
+                            Icons.more_horiz,
+                            size: 30,
+                            color: AppColors.black,
+                          )
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 15,
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 40),
+                          horizontal: 30, vertical: 30),
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -118,6 +124,7 @@ class HomeScreen extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder: (context) => const ScanScreen(
                                       index: 1,
+                                      title: "Scan Passport/ID Card",
                                     ),
                                   ));
                             },
@@ -158,6 +165,7 @@ class HomeScreen extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder: (context) => const ScanScreen(
                                       index: 0,
+                                      title: "Scan Passport/ID Card",
                                     ),
                                   ));
                             },
@@ -198,6 +206,7 @@ class HomeScreen extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder: (context) => const ScanScreen(
                                       index: 2,
+                                      title: "Scan Vehicle",
                                     ),
                                   ));
                             },
@@ -291,14 +300,14 @@ class HomeScreen extends StatelessWidget {
                                   Text("Tabe Lilian",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1
+                                          .bodyLarge
                                           ?.copyWith(
                                             fontSize: 19,
                                           )),
                                   Text("27/03/2024",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1
+                                          .bodyLarge
                                           ?.copyWith(
                                             fontSize: 15,
                                           )),

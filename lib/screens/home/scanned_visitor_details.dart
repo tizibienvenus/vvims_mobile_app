@@ -1,19 +1,19 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:vvims/config/app_colors.dart';
 
-import '../../utils/colors.dart';
 
 class ScannedVisitorDetails extends StatelessWidget {
   const ScannedVisitorDetails({super.key, this.frontIdData, this.backIdData});
 
-  final frontIdData;
-  final backIdData;
+  final Map<String, dynamic>? frontIdData;
+  final Map<String, dynamic>? backIdData;
 
   @override
   Widget build(BuildContext context) {
-    log(frontIdData, name: 'FRONT ID CARD DATA');
-    log(backIdData, name: 'BACK ID CARD DATA');
+    log(frontIdData.toString(), name: 'FRONT ID CARD DATA');
+    log(backIdData.toString(), name: 'BACK ID CARD DATA');
 
     return Scaffold(
         appBar: AppBar(

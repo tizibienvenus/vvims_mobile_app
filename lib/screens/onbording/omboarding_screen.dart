@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vvims/constants/constants.dart';
-import 'package:vvims/screens/auth/login.dart';
 
 import 'components/first_onbord.dart';
 import 'components/second_onbord.dart';

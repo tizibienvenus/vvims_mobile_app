@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vvims/constants/constants.dart';
 import 'package:vvims/screens/auth/login.dart';
 
@@ -9,9 +6,9 @@ import 'dot_indicator.dart';
 
 class ThirdOnboardContent extends StatelessWidget {
   const ThirdOnboardContent({
-    Key? key,
+    super.key,
     required this.position
-  }) : super(key: key);
+  });
   final int position;
  
 
@@ -122,7 +119,7 @@ class ThirdOnboardContent extends StatelessWidget {
                           onPressed: (){
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => LoginScreen())
+                              MaterialPageRoute(builder: (context) => const LoginScreen())
                             );
                           },
                           style: buttonStyle,

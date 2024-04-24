@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vvims/utils/colors.dart';
+import 'package:vvims/config/app_colors.dart';
 
 import '../constants/constants.dart';
 
@@ -7,7 +7,7 @@ ThemeData theme = ThemeData(
   primaryColor: AppColors.blue,
   hintColor: AppColors.blue,
   unselectedWidgetColor: AppColors.grey,
-    fontFamily: 'Montserrat',
+  fontFamily: 'Sk-Modernist',
   splashFactory: NoSplash.splashFactory,
 
   iconTheme: const IconThemeData(color: kContentColorLightTheme),
@@ -60,7 +60,7 @@ ThemeData theme = ThemeData(
     // main primary body text
     bodyLarge:  TextStyle(
       color: AppColors.black,
-      fontFamily: 'Montserrat',
+      fontFamily: 'Sk-Modernist',
       fontStyle: FontStyle.normal,
       fontSize: 14,
       fontWeight: FontWeight.w400,
@@ -69,7 +69,7 @@ ThemeData theme = ThemeData(
     // secondary body text
     bodyMedium: TextStyle(
         color: AppColors.black,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Sk-Modernist',
         height: 1.5,
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.w300,
@@ -107,7 +107,7 @@ ThemeData theme = ThemeData(
     // used for buttons
     headlineMedium: TextStyle(
         color: AppColors.black,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Sk-Modernist',
         fontStyle: FontStyle.normal,
         fontSize: 15,
         fontWeight: FontWeight.w500,
@@ -117,7 +117,7 @@ ThemeData theme = ThemeData(
     // label + caption
     headlineSmall: TextStyle(
         color: AppColors.black,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Sk-Modernist',
         fontStyle: FontStyle.normal,
         fontSize: 14,
         fontWeight: FontWeight.w500
@@ -126,7 +126,7 @@ ThemeData theme = ThemeData(
     //over line + button small
     titleLarge: TextStyle(
         color: AppColors.black,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Sk-Modernist',
         fontStyle: FontStyle.normal,
         fontSize: 12,
         fontWeight: FontWeight.w700,

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -10,10 +9,9 @@ import 'package:vvims/screens/profile/profile.dart';
 import 'package:vvims/screens/scan/scan_screen.dart';
 import 'package:vvims/screens/visit_info/visit_info.dart';
 
-import '../utils/colors.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   State<Home> createState() => _ChatsState();
@@ -50,11 +48,11 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
   int currentIndex = 0;
 
   List pages = [
-    HomeScreen(),
-    VisitInfosScreen(),
-    HomeScreen(),
-    NotificationsScreen(),
-    ProfilScreen(),
+    const HomeScreen(),
+    const VisitInfosScreen(),
+    const HomeScreen(),
+    const NotificationsScreen(),
+    const ProfilScreen(),
   ];
 
   @override
@@ -136,7 +134,10 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ScanScreen(),
+                  builder: (context) => const ScanScreen(
+                    title: "Scan Passport/ID Card",
+                    index: 1,
+                  ),
                 ));
           },
           shape: RoundedRectangleBorder(
@@ -174,7 +175,10 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ScanScreen(),
+                  builder: (context) => const ScanScreen(
+                    title: "Scan Vehicle",
+                    index: 2,
+                  ),
                 ));
           },
           shape: RoundedRectangleBorder(

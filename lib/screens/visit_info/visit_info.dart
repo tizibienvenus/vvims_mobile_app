@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../../components/custom_input.dart';
-import '../../utils/colors.dart';
+import 'package:vvims/config/app_colors.dart';
+import '../../components/custom_serach_input.dart';
 
 class VisitInfosScreen extends StatelessWidget{
+  const VisitInfosScreen({super.key});
+
 
   @override
   Widget build(BuildContext context){
@@ -126,13 +127,13 @@ class VisitInfosScreen extends StatelessWidget{
                             Text("Tabe Lilian",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1
+                                    .bodyLarge
                                     ?.copyWith(
                                   fontSize: 19,)),
                             Text("27/03/2024",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1
+                                    .bodyLarge
                                     ?.copyWith(
                                   fontSize: 15,
                                 )),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../../utils/colors.dart';
+import 'package:vvims/config/app_colors.dart';
 
 class NotificationsScreen extends StatelessWidget{
+  const NotificationsScreen({super.key});
+
 
   @override
   Widget build(BuildContext context){
@@ -68,7 +69,7 @@ class NotificationsScreen extends StatelessWidget{
                                   maxLines: 3,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1
+                                      .bodyLarge
                                       ?.copyWith(
                                     fontSize: 16,
                                   )),
@@ -76,7 +77,7 @@ class NotificationsScreen extends StatelessWidget{
                               Text("10 minutes ago",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1
+                                      .bodyLarge
                                       ?.copyWith(
                                     fontSize: 15,
                                   )),

@@ -1,16 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vvims/constants/constants.dart';
 
 import 'dot_indicator.dart';
 
 class SecondOnboardContent extends StatelessWidget {
   const SecondOnboardContent({
-    Key? key,
+    super.key,
     required this.position
-  }) : super(key: key);
+  });
   final int position;
  
 
