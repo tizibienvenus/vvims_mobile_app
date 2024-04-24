@@ -1,14 +1,16 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:vvims/config/app_colors.dart';
 import 'package:vvims/constants/constants.dart';
+import 'package:vvims/providers/bottom_navigation_provider.dart';
 import 'package:vvims/screens/home/home_screen.dart';
 import 'package:vvims/screens/notifications/notifiactions.dart';
 import 'package:vvims/screens/profile/profile.dart';
 import 'package:vvims/screens/scan/scan_screen.dart';
 import 'package:vvims/screens/visit_info/visit_info.dart';
-
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -50,7 +52,6 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
   List pages = [
     const HomeScreen(),
     const VisitInfosScreen(),
-    const HomeScreen(),
     const NotificationsScreen(),
     const ProfilScreen(),
   ];
@@ -58,22 +59,141 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use
-    return WillPopScope(
-      onWillPop: () async {
-        if (isDialOpen.value) {
-          isDialOpen.value = false;
-          return false;
-        } else {
-          return true;
-        }
-      },
-      child: Scaffold(
-        bottomNavigationBar: buildBottomNavigationBar(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: buildFat(),
-        body: pages[currentIndex],
-      ),
-    );
+    return Consumer<BottomNavProvider>(builder: (_, provider, __) {
+      return WillPopScope(
+        onWillPop: () async {
+          if (isDialOpen.value) {
+            isDialOpen.value = false;
+            return false;
+          } else {
+            return true;
+          }
+        },
+        child: Scaffold(
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: InkWell(
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ScanScreen(
+                    title: "Scan Passport/ID Card",
+                    index: 1,
+                  ),
+                )),
+            child: Container(
+              height: 65.h,
+              width: 65.w,
+              margin: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(colors: [
+                  Color(0xff7B9CF6),
+                  Color(0xff184AD2),
+                ]),
+              ),
+              child: Image.asset(
+                "assets/icons/scanner.png",
+                height: 30.h,
+                width: 30.w,
+              ),
+            ),
+          ),
+          body: pages[provider.currentIndex],
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.grey.withOpacity(0.2),
+                  offset: const Offset(0, -1),
+                  blurRadius: 1,
+                ),
+              ],
+            ),
+            height: 60,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                MaterialButton(
+                  
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onPressed: () {
+                      provider.updateIndex(0);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icons/home.png",
+                          height: 25,
+                          width: 25,
+                          // color: _currentIndex == 0 ? ColorUtils.Green :  ColorUtils.Black,
+                        ),
+                      ],
+                    )),
+                MaterialButton(
+                    // minWidth: 60,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onPressed: () {
+                      provider.updateIndex(1);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icons/folder.png",
+                          height: 25,
+                          width: 25,
+                        ),
+                      ],
+                    )),
+                MaterialButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onPressed: () {
+                      provider.updateIndex(2);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icons/notification.png",
+                          height: 25,
+                          width: 25,
+                        ),
+                      ],
+                    )),
+                MaterialButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onPressed: () {
+                      provider.updateIndex(3);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icons/profile.png",
+                          height: 25,
+                          width: 25,
+                        ),
+                      ],
+                    )),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
   }
 
   BottomNavigationBar buildBottomNavigationBar() {
@@ -109,101 +229,6 @@ class _ChatsState extends State<Home> with SingleTickerProviderStateMixin {
         BottomNavigationBarItem(
           icon: Icon(Icons.person_2_rounded),
           label: "Profile",
-        ),
-      ],
-    );
-  }
-
-  SpeedDial buildFat() {
-    return SpeedDial(
-      icon: Icons.qr_code_scanner_outlined,
-      openCloseDial: isDialOpen,
-      backgroundColor: kPrimaryColor,
-      overlayColor: const Color(0xFF2C4364).withOpacity(0.4),
-      overlayOpacity: 0.8,
-      spacing: 0,
-      elevation: 0,
-      buttonSize: const Size(56, 56),
-      childrenButtonSize: const Size(300, 60),
-      spaceBetweenChildren: 5,
-      closeManually: true,
-      children: [
-        SpeedDialChild(
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ScanScreen(
-                    title: "Scan Passport/ID Card",
-                    index: 1,
-                  ),
-                ));
-          },
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100.0),
-          ),
-          child: Container(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                    backgroundColor: kSecondaryColor.withOpacity(0.1),
-                    child: SvgPicture.asset(
-                      "assets/icons/car.svg",
-                      height: 20,
-                    )),
-                const SizedBox(
-                  width: kDefaultPadding / 2,
-                ),
-                Flexible(
-                  child: Text(
-                    "Scan Passport/ID Card",
-                    maxLines: 1,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-        SpeedDialChild(
-          //backgroundColor: kWhiteColor,
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ScanScreen(
-                    title: "Scan Vehicle",
-                    index: 2,
-                  ),
-                ));
-          },
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-                100.0), // Customize the border radius as needed
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                  backgroundColor: kSecondaryColor.withOpacity(0.1),
-                  child: SvgPicture.asset(
-                    "assets/icons/car.svg",
-                    height: 20,
-                  )),
-              const SizedBox(
-                width: kDefaultPadding / 2,
-              ),
-              Text(
-                "Scan Vehicle",
-                style: Theme.of(context).textTheme.bodyLarge,
-              )
-            ],
-          ),
         ),
       ],
     );
