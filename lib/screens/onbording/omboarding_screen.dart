@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vvims/constants/constants.dart';
-import 'package:vvims/screens/auth/login.dart';
-import 'package:vvims/screens/ombording/components/dot_indicator.dart';
-import 'package:vvims/screens/ombording/components/first_onbord.dart';
-import 'package:vvims/screens/ombording/components/onboarding_content.dart';
-import 'package:vvims/screens/ombording/components/second_onbord.dart';
-import 'package:vvims/screens/ombording/components/third_onbord.dart';
+
+import 'components/first_onbord.dart';
+import 'components/second_onbord.dart';
+import 'components/third_onbord.dart';
 
 
 class OnboardingView extends StatefulWidget {

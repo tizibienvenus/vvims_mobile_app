@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class OnboardContent extends StatelessWidget {
   const OnboardContent({
-    Key? key,
+    super.key,
     required this.illustration,
     required this.title,
     required this.text,
-  }) : super(key: key);
+  });
 
   final String? illustration, title, text;
 

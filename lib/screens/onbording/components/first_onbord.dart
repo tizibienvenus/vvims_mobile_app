@@ -1,16 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vvims/constants/constants.dart';
-import 'package:vvims/screens/ombording/components/dot_indicator.dart';
+
+import 'dot_indicator.dart';
 
 
 class FirstOnboardContent extends StatelessWidget {
   const FirstOnboardContent({
-    Key? key,
+    super.key,
     required this.position
-  }) : super(key: key);
+  });
   final int position;
  
 
@@ -68,7 +66,7 @@ class FirstOnboardContent extends StatelessWidget {
                       Transform(
                         transform: Matrix4.identity()..rotateZ(4.75),
                         alignment: Alignment.center,
-                        origin: Offset(0, -6),
+                        origin: const Offset(0, -6),
                         child: const Icon(
                           Icons.arrow_back_ios,
                           color: kWhiteColor,

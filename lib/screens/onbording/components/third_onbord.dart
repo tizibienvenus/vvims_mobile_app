@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vvims/constants/constants.dart';
-import 'package:vvims/screens/ombording/components/dot_indicator.dart';
+import 'package:vvims/screens/auth/login.dart';
 
-class SecondOnboardContent extends StatelessWidget {
-  const SecondOnboardContent({
-    Key? key,
+import 'dot_indicator.dart';
+
+class ThirdOnboardContent extends StatelessWidget {
+  const ThirdOnboardContent({
+    super.key,
     required this.position
-  }) : super(key: key);
+  });
   final int position;
  
 
@@ -40,7 +39,7 @@ class SecondOnboardContent extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.12),//kDefaultPadding * 2),
           child: AspectRatio(
             aspectRatio: 1,
-            child: Image.asset("assets/images/user_onboard.png"),
+            child: Image.asset("assets/images/car_onboard.png"),
           ),
         ),
         const SizedBox(height: 16),
@@ -80,14 +79,14 @@ class SecondOnboardContent extends StatelessWidget {
                   children: [
                     const SizedBox(height: kDefaultPadding,),
                     Text(
-                      "Scanner les cartes d’identité/passeports des visiteurs",
+                      "Capture automatique de la plaque d'immatriculation du véhicule",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleMedium,
 
                     ),
                     const SizedBox(height: kDefaultPadding,),
                     const Text(
-                      "Gérez les visiteurs en scannant les cartes d’identité ou les passeports et en extrayant les informations sur les visiteurs.",
+                      "Gérez les véhicules en scannant automatiquement les numéros de plaque d’immatriculation des véhicules et en gardant une trace de toutes les informations.",
                       textAlign: TextAlign.center,
                       //style: Theme.of(context).textTheme.labelSmall,
                     ),
@@ -117,7 +116,12 @@ class SecondOnboardContent extends StatelessWidget {
                         Transform.rotate(
                           angle: 3.15,
                           child: IconButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LoginScreen())
+                            );
+                          },
                           style: buttonStyle,
                           icon: const Icon(
                             Icons.arrow_back,

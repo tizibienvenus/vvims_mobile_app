@@ -4,11 +4,11 @@ import 'package:vvims/constants/constants.dart';
 
 class DotIndicator extends StatelessWidget {
   const DotIndicator({
-    Key? key,
+    super.key,
     this.isActive = false,
     this.activeColor = kSecondaryColor,
     this.inActiveColor = const Color(0xFFF7F7F7),
-  }) : super(key: key);
+  });
 
   final bool isActive;
   final Color activeColor, inActiveColor;
